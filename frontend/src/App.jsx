@@ -1,9 +1,14 @@
-import Todo from "./components/Todo"
+import AddTodo from "./components/AddTodo.jsx"
+import DisplayTodo from "./components/DisplayTodo.jsx"
+import { RecoilRoot } from "recoil"
 
 export default function App() {
   return (
     <>
-      <Todo />
+    <RecoilRoot>
+      <AddTodo />
+      <DisplayTodo />
+    </RecoilRoot>
     </>
   )
 }
