@@ -8,13 +8,12 @@ export default function AddTodo() {
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
   const [TodoList, setTodoList] = useRecoilState(todoAtom);
-  
+
   function addTodo() {
     setTodoList([...TodoList, {
       "ID": ID,
       "Title": Title,
-      "Description": Description, 
-      "Completed": false
+      "Description": Description
     }]);
     ID ++;
   }
