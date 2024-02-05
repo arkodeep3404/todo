@@ -5,6 +5,6 @@ const todoRouter = require("./todo");
 const router = express.Router();
 
 router.use("/user", userRouter);
-router.use("/todo", todoRouter);
+router.use("/account", todoRouter);
 
 module.exports = router;
