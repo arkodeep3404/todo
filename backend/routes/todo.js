@@ -42,14 +42,12 @@ router.post("/todo", authMiddleware, async (req, res) => {
 });
 
 router.delete("/todo/:todoId", authMiddleware, async (req, res) => {
-    const userId = req.userId
+    const userId = req.userId;
     const todoId = req.params.todoId;
-
-    console.log(todoId)
 
     await Todo.deleteOne({
         userId: userId, 
-        _id: todoId 
+        _id: todoId  
     })
    
     res.status(200).json({
