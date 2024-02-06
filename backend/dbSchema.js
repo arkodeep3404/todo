@@ -13,7 +13,7 @@ const userSchema = new schema({
 });
 
 const todoSchema = new schema({
-    todoId: schema.Types.ObjectId,
+    userId: schema.Types.ObjectId,
     title: String,
     description: String
 });

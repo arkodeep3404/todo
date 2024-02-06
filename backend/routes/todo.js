@@ -8,7 +8,7 @@ router.get("/todos", authMiddleware, async (req, res) => {
     const userId = req.userId
     
     const todos = await Todo.find({
-        todoId: userId
+        userId: userId
     })
 
     res.status(200).json({
@@ -30,18 +30,30 @@ router.post("/todo", authMiddleware, async (req, res) => {
         })
     }
 
-    const todoId = req.userId;
-    const title = req.body.title;
-    const description = req.body.description;
-
     await Todo.create({
-        todoId: req.userId,
+        userId: req.userId,
         title: req.body.title,
         description: req.body.description
     })
 
     res.status(200).json({
         "message": "todo added"
+    })
+});
+
+router.delete("/todo/:todoId", authMiddleware, async (req, res) => {
+    const userId = req.userId
+    const todoId = req.params.todoId;
+
+    console.log(todoId)
+
+    await Todo.deleteOne({
+        userId: userId, 
+        _id: todoId 
+    })
+   
+    res.status(200).json({
+        "message": "todo deleted"
     })
 });
 
