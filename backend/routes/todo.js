@@ -19,7 +19,7 @@ router.get("/todos", authMiddleware, async (req, res) => {
 const todoBody = zod.object({
     title: zod.string(),
     description: zod.string()
-  });
+});
 
 router.post("/todo", authMiddleware, async (req, res) => {
     const { success } = todoBody.safeParse(req.body);
@@ -41,18 +41,31 @@ router.post("/todo", authMiddleware, async (req, res) => {
     })
 });
 
-router.delete("/todo/:todoId", authMiddleware, async (req, res) => {
+router.delete("/todo", authMiddleware, async (req, res) => {
     const userId = req.userId;
-    const todoId = req.params.todoId;
+    const todoId = req.query.todoId;
 
-    await Todo.deleteOne({
-        userId: userId, 
-        _id: todoId  
-    })
-   
-    res.status(200).json({
-        "message": "todo deleted"
-    })
+    try {
+        const todo = await Todo.findOne({
+            userId: userId, 
+            _id: todoId  
+        })
+
+        if (todo) {
+            await Todo.deleteOne({
+                userId: userId, 
+                _id: todoId  
+            })
+    
+            res.status(200).json({
+                "message": "todo deleted"
+            })
+        }
+    } catch {
+        res.status(200).json({
+            "message": "incorrect id"
+        })
+    }
 });
 
 module.exports = router;
