@@ -1,8 +1,10 @@
-import { RecoilRoot } from "recoil"
+import { RecoilRoot } from "recoil";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Signup from "./pages/signup";
 import Signin from "./pages/signin";
 import Home from "./pages/home";
+import Index from "./pages/index";
+import Test from "./pages/test";
 
 export default function App() {
   return (
@@ -12,8 +14,10 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Index />} />
+          <Route path="/test" element={<Test />} />
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
-  )
+  );
 }

@@ -1,9 +1,7 @@
-import AddTodo from "../components/addTodo";
-import DisplayTodo from "../components/displayTodo";
 import useUser from "../hooks/useUser";
 import { Navigate } from "react-router-dom";
 
-export default function Home() {
+export default function Index() {
   const user = useUser();
 
   if (user.Loading) {
@@ -18,10 +16,5 @@ export default function Home() {
     return <Navigate to={"/signin"} />;
   }
 
-  return (
-    <>
-      <AddTodo />
-      <DisplayTodo />
-    </>
-  );
+  return <Navigate to={"/home"} />;
 }

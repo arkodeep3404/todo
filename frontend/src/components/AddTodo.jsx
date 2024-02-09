@@ -1,24 +1,26 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { todoAtom } from "../store/todo";
-
-let ID = 0;
+import axios from "axios";
 
 export default function AddTodo() {
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
   const [TodoList, setTodoList] = useRecoilState(todoAtom);
 
-  function addTodo() {
-    setTodoList([
-      ...TodoList,
+  async function addTodo() {
+    await axios.post(
+      "http://localhost:3000/api/v1/account/todo",
       {
-        ID: ID,
-        Title: Title,
-        Description: Description,
+        title: Title,
+        description: Description,
       },
-    ]);
-    ID++;
+      {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("todo_token"),
+        },
+      }
+    );
   }
 
   return (

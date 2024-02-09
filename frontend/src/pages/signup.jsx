@@ -4,15 +4,29 @@ import Heading from "../components/heading";
 import InputBox from "../components/inputBox";
 import SubHeading from "../components/subHeading";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import useUser from "../hooks/useUser";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const user = useUser();
   const navigate = useNavigate();
+
+  if (user.Loading) {
+    return (
+      <div className="flex justify-center items-center h-screen w-screen">
+        <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" />
+      </div>
+    );
+  }
+
+  if (user.UserDetails) {
+    return <Navigate to={"/home"} />;
+  }
 
   return (
     <div className="bg-slate-300 h-screen flex justify-center">
@@ -61,7 +75,7 @@ export default function Signup() {
                   }
                 );
                 localStorage.setItem("todo_token", response.data.token);
-                navigate("/dashboard");
+                navigate("/home");
               }}
               label={"Sign up"}
             />
