@@ -6,9 +6,22 @@ const zod = require("zod");
 
 router.get("/todos", authMiddleware, async (req, res) => {
   const userId = req.userId;
+  const filter = req.query.filter || "";
 
   const todos = await Todo.find({
     userId: userId,
+    $or: [
+      {
+        title: {
+          $regex: filter,
+        },
+      },
+      {
+        description: {
+          $regex: filter,
+        },
+      },
+    ],
   });
 
   res.status(200).json({
