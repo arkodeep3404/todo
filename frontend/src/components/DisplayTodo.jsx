@@ -6,7 +6,6 @@ import axios from "axios";
 export default function DisplayTodo() {
   const [TodoList, setTodoList] = useRecoilState(todoAtom);
   const [Filter, setFilter] = useState("");
-  
 
   useEffect(() => {
     async function firstFetch() {
@@ -21,7 +20,9 @@ export default function DisplayTodo() {
       setTodoList(response.data.todos);
     }
     firstFetch();
+  }, []);
 
+  useEffect(() => {
     const timeoutValue = setTimeout(async () => {
       const response = await axios.get(
         "http://localhost:3000/api/v1/account/todos?filter=" + Filter,
