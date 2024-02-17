@@ -6,6 +6,7 @@ import Home from "./pages/home";
 import Index from "./pages/index";
 import Profile from "./pages/profile";
 import Test from "./pages/test";
+import Error from "./pages/error";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/" element={<Index />} />
           <Route path="/test" element={<Test />} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
