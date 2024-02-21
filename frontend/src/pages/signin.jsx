@@ -11,6 +11,7 @@ import useUser from "../hooks/useUser";
 export default function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [Error, setError] = useState(false);
   const user = useUser();
   const navigate = useNavigate();
 
@@ -24,6 +25,22 @@ export default function Signin() {
 
   if (user.UserDetails) {
     return <Navigate to={"/home"} />;
+  }
+
+  async function Signin() {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/user/signin",
+        {
+          email,
+          password,
+        }
+      );
+      localStorage.setItem("todo_token", response.data.token);
+      navigate("/home");
+    } catch (error) {
+      setError(true);
+    }
   }
 
   return (
@@ -47,20 +64,10 @@ export default function Signin() {
             label={"Password"}
           />
           <div className="pt-4">
-            <Button
-              onClick={async () => {
-                const response = await axios.post(
-                  "http://localhost:3000/api/v1/user/signin",
-                  {
-                    email,
-                    password,
-                  }
-                );
-                localStorage.setItem("todo_token", response.data.token);
-                navigate("/home");
-              }}
-              label={"Sign in"}
-            />
+            <Button onClick={Signin} label={"Sign in"} />
+          </div>
+          <div className={`${!Error ? "hidden" : ""}`}>
+            Incorrect Email or Password
           </div>
           <BottomWarning
             label={"Don't have an account?"}

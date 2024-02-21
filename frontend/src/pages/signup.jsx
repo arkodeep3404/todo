@@ -13,6 +13,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [Error, setError] = useState(false);
   const user = useUser();
   const navigate = useNavigate();
 
@@ -26,6 +27,24 @@ export default function Signup() {
 
   if (user.UserDetails) {
     return <Navigate to={"/home"} />;
+  }
+
+  async function Signup() {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/user/signup",
+        {
+          email,
+          firstName,
+          lastName,
+          password,
+        }
+      );
+      localStorage.setItem("todo_token", response.data.token);
+      navigate("/home");
+    } catch (error) {
+      setError(true);
+    }
   }
 
   return (
@@ -63,22 +82,10 @@ export default function Signup() {
             label={"Password"}
           />
           <div className="pt-4">
-            <Button
-              onClick={async () => {
-                const response = await axios.post(
-                  "http://localhost:3000/api/v1/user/signup",
-                  {
-                    email,
-                    firstName,
-                    lastName,
-                    password,
-                  }
-                );
-                localStorage.setItem("todo_token", response.data.token);
-                navigate("/home");
-              }}
-              label={"Sign up"}
-            />
+            <Button onClick={Signup} label={"Sign up"} />
+          </div>
+          <div className={`${!Error ? "hidden" : ""}`}>
+            Email already exists
           </div>
           <BottomWarning
             label={"Already have an account?"}

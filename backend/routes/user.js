@@ -14,7 +14,7 @@ router.get("/me", authMiddleware, async (req, res) => {
       message: "not logged in",
     });
   }
- 
+
   const user = await User.findById(userId);
   const todos = await Todo.find({
     userId: userId,
@@ -74,7 +74,7 @@ router.post("/signup", async (req, res) => {
     JWT_SECRET
   );
 
-  res.json({
+  res.status(200).json({
     message: "user created",
     token: token,
   });
@@ -109,7 +109,7 @@ router.post("/signin", async (req, res) => {
       JWT_SECRET
     );
 
-    res.json({
+    res.status(200).json({
       token: token,
     });
     return;
