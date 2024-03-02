@@ -12,6 +12,14 @@ const userSchema = new schema({
   password: String,
   firstName: String,
   lastName: String,
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  token: {
+    type: String,
+    default: "",
+  },
 });
 
 const todoSchema = new schema({
