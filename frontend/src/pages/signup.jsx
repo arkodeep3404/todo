@@ -40,8 +40,7 @@ export default function Signup() {
           password,
         }
       );
-      localStorage.setItem("todo_token", response.data.token);
-      navigate("/home");
+      alert("Please verify email and signin");
     } catch (error) {
       setError(true);
     }

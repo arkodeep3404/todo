@@ -74,15 +74,6 @@ router.post("/signup", async (req, res) => {
     token: uid,
   });
 
-  const userId = user._id;
-
-  const token = jwt.sign(
-    {
-      userId,
-    },
-    JWT_SECRET
-  );
-
   await transporter.sendMail({
     from: '"NexaWings" <nexawingsenterprises@gmail.com>',
     to: req.body.email,
@@ -93,7 +84,6 @@ router.post("/signup", async (req, res) => {
 
   res.status(200).json({
     message: "user created. please verify email.",
-    token: token,
   });
 });
 

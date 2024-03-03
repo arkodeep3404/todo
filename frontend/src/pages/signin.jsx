@@ -67,7 +67,7 @@ export default function Signin() {
             <Button onClick={Signin} label={"Sign in"} />
           </div>
           <div className={`${!Error ? "hidden" : ""}`}>
-            Incorrect Email or Password
+            Incorrect Email or Password/ Email not verified
           </div>
           <BottomWarning
             label={"Don't have an account?"}
