@@ -8,9 +8,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useUser from "../hooks/useUser";
 
-export default function Signin() {
+export default function Forgot() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [Error, setError] = useState(false);
   const user = useUser();
   const navigate = useNavigate();
@@ -27,17 +26,15 @@ export default function Signin() {
     return <Navigate to={"/home"} />;
   }
 
-  async function Signin() {
+  async function Forogt() {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/signin",
+        "http://localhost:3000/api/v1/user/forgot",
         {
           email,
-          password,
         }
       );
-      localStorage.setItem("todo_token", response.data.token);
-      navigate("/home");
+      alert("Email sent");
     } catch (error) {
       setError(true);
     }
@@ -47,8 +44,8 @@ export default function Signin() {
     <div className="bg-slate-300 h-screen flex justify-center">
       <div className="flex flex-col justify-center">
         <div className="rounded-lg bg-white w-80 text-center p-2 h-max px-4">
-          <Heading label={"Sign in"} />
-          <SubHeading label={"Enter your credentials to access your account"} />
+          <Heading label={"Forgot Password"} />
+          <SubHeading label={"Enter your email to reset your password"} />
           <InputBox
             onChange={(e) => {
               setEmail(e.target.value);
@@ -56,28 +53,14 @@ export default function Signin() {
             placeholder="harkirat@gmail.com"
             label={"Email"}
           />
-          <InputBox
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            placeholder="123456"
-            label={"Password"}
-          />
           <div className="pt-4">
-            <Button onClick={Signin} label={"Sign in"} />
+            <Button onClick={Forogt} label={"Send Email"} />
           </div>
-          <div className={`${!Error ? "hidden" : ""}`}>
-            Incorrect Email or Password
-          </div>
+          <div className={`${!Error ? "hidden" : ""}`}>Incorrect Email</div>
           <BottomWarning
             label={"Don't have an account?"}
             buttonText={"Sign up"}
             to={"/signup"}
-          />
-          <BottomWarning
-            label={"Forgot password?"}
-            buttonText={"Reset"}
-            to={"/forogt"}
           />
         </div>
       </div>
