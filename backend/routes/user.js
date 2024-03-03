@@ -194,7 +194,7 @@ router.post("/forgot", async (req, res) => {
       to: req.body.email,
       subject: "Reset Password",
       html: `<p> Hi ${user.firstName}. Please use the link to reset password. </p> 
-      <a href = "http://localhost:3000/api/v1/user/reset/${uid}"> Copy link </a>`,
+      <a href = "http://localhost:3000/api/v1/user/reset/${uid}"> Click here </a>`,
     });
 
     res.status(200).json({
