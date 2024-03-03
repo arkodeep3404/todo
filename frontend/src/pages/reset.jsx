@@ -12,7 +12,7 @@ export default function Reset() {
   const [password, setPasssword] = useState("");
   const [Error, setError] = useState(false);
   const user = useUser();
-  const token = useParams();
+  const { token } = useParams();
   const navigate = useNavigate();
 
   if (user.Loading) {
@@ -32,9 +32,10 @@ export default function Reset() {
       const response = await axios.post(
         `http://localhost:3000/api/v1/user/reset/${token}`,
         {
-          email,
+          password,
         }
       );
+      alert("Reset successful");
       navigate("/signin");
     } catch (error) {
       setError(true);

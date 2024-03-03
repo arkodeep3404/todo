@@ -155,7 +155,7 @@ router.get("/verify/:token", async (req, res) => {
     });
   } else {
     res.status(200).json({
-      message: "email verified",
+      message: "email verified. please signin",
     });
   }
 });

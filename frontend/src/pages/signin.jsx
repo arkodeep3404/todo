@@ -77,7 +77,7 @@ export default function Signin() {
           <BottomWarning
             label={"Forgot password?"}
             buttonText={"Reset"}
-            to={"/forogt"}
+            to={"/forgot"}
           />
         </div>
       </div>
