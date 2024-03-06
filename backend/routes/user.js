@@ -265,7 +265,7 @@ router.put("/update", authMiddleware, async (req, res) => {
   );
 
   if (!user) {
-    res.status(400).json({
+    res.status(403).json({
       message: "incorrect headers",
     });
   } else {

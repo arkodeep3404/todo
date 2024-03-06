@@ -30,12 +30,12 @@ export default function Update() {
       const response = await axios.put(
         "http://localhost:3000/api/v1/user/update",
         {
+          password,
+        },
+        {
           headers: {
             authorization: "Bearer " + localStorage.getItem("todo_token"),
           },
-        },
-        {
-          password,
         }
       );
       alert("Update successful");
