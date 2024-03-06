@@ -1,4 +1,3 @@
-import BottomWarning from "../components/bottomWarning";
 import Button from "../components/button";
 import Heading from "../components/heading";
 import InputBox from "../components/inputBox";
@@ -8,8 +7,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useUser from "../hooks/useUser";
 
-export default function Signin() {
-  const [email, setEmail] = useState("");
+export default function Update() {
   const [password, setPassword] = useState("");
   const [Error, setError] = useState(false);
   const user = useUser();
@@ -23,20 +21,24 @@ export default function Signin() {
     );
   }
 
-  if (user.UserDetails) {
-    return <Navigate to={"/home"} />;
+  if (!user.UserDetails) {
+    return <Navigate to={"/signin"} />;
   }
 
-  async function Signin() {
+  async function Update() {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/user/signin",
+      const response = await axios.put(
+        "http://localhost:3000/api/v1/user/update",
         {
-          email,
+          headers: {
+            authorization: "Bearer " + localStorage.getItem("todo_token"),
+          },
+        },
+        {
           password,
         }
       );
-      localStorage.setItem("todo_token", response.data.token);
+      alert("Update successful");
       navigate("/home");
     } catch (error) {
       setError(true);
@@ -47,15 +49,8 @@ export default function Signin() {
     <div className="bg-slate-300 h-screen flex justify-center">
       <div className="flex flex-col justify-center">
         <div className="rounded-lg bg-white w-80 text-center p-2 h-max px-4">
-          <Heading label={"Sign in"} />
-          <SubHeading label={"Enter your credentials to access your account"} />
-          <InputBox
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            placeholder="harkirat@gmail.com"
-            label={"Email"}
-          />
+          <Heading label={"Update Password"} />
+          <SubHeading label={"Enter new password"} />
           <InputBox
             onChange={(e) => {
               setPassword(e.target.value);
@@ -64,26 +59,9 @@ export default function Signin() {
             label={"Password"}
           />
           <div className="pt-4">
-            <Button onClick={Signin} label={"Sign in"} />
+            <Button onClick={Update} label={"Update Password"} />
           </div>
-          <div className={`${!Error ? "hidden" : ""}`}>
-            Incorrect Email or Password/ Email not verified
-          </div>
-          <BottomWarning
-            label={"Don't have an account?"}
-            buttonText={"Sign up"}
-            to={"/signup"}
-          />
-          <BottomWarning
-            label={"Forgot password?"}
-            buttonText={"Reset"}
-            to={"/forgot"}
-          />
-          <BottomWarning
-            label={"Didn't get email?"}
-            buttonText={"Resend"}
-            to={"/resend"}
-          />
+          <div className={`${!Error ? "hidden" : ""}`}>Incorrect Token</div>
         </div>
       </div>
     </div>

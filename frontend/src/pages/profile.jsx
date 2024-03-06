@@ -1,10 +1,12 @@
 import useUser from "../hooks/useUser";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import DisplayBox from "../components/displayBox";
 import Heading from "../components/heading";
+import Button from "../components/button";
 
 export default function Profile() {
   const user = useUser();
+  const navigate = useNavigate();
 
   if (user.Loading) {
     return (
@@ -16,6 +18,10 @@ export default function Profile() {
 
   if (!user.UserDetails) {
     return <Navigate to={"/signin"} />;
+  }
+
+  function Update() {
+    navigate("/update");
   }
 
   return (
@@ -32,6 +38,9 @@ export default function Profile() {
             content={user.UserDetails.user.lastName}
           />
           <DisplayBox label={"Email"} content={user.UserDetails.user.email} />
+          <div className="pt-6">
+            <Button onClick={Update} label={"Update Password"} />
+          </div>
         </div>
       </div>
     </div>

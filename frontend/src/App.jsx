@@ -7,6 +7,8 @@ import Index from "./pages/index";
 import Profile from "./pages/profile";
 import Forgot from "./pages/forgot";
 import Reset from "./pages/reset";
+import Resend from "./pages/resend";
+import Update from "./pages/update";
 import Test from "./pages/test";
 import Error from "./pages/error";
 
@@ -22,6 +24,8 @@ export default function App() {
           <Route path="/" element={<Index />} />
           <Route path="/forgot" element={<Forgot />} />
           <Route path="/reset/:token" element={<Reset />} />
+          <Route path="/resend" element={<Resend />} />
+          <Route path="/update" element={<Update />} />
           <Route path="/test" element={<Test />} />
           <Route path="*" element={<Error />} />
         </Routes>

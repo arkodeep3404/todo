@@ -193,7 +193,7 @@ router.post("/forgot", async (req, res) => {
   }
 });
 
-router.post("/reset/:token", async (req, res) => {
+router.put("/reset/:token", async (req, res) => {
   token = req.params.token;
 
   const user = await User.findOneAndUpdate(
@@ -208,11 +208,65 @@ router.post("/reset/:token", async (req, res) => {
     }
   );
 
-  console.log(user);
-
   if (!user) {
     res.status(404).json({
       message: "incorrect token",
+    });
+  } else {
+    res.status(200).json({
+      message: "password updated",
+    });
+  }
+});
+
+router.post("/resend", async (req, res) => {
+  const uid = [...Array(10)].map(() => Math.random().toString(36)[2]).join("");
+
+  const user = await User.findOneAndUpdate(
+    {
+      email: req.body.email,
+    },
+    {
+      $set: {
+        token: uid,
+      },
+    }
+  );
+
+  if (!user) {
+    res.status(404).json({
+      message: "incorrect email",
+    });
+  } else {
+    await transporter.sendMail({
+      from: '"NexaWings" <nexawingsenterprises@gmail.com>',
+      to: req.body.email,
+      subject: "Email Verification",
+      html: `<p> Hi ${user.firstName}. Please verify your email. </p> 
+    <a href = "http://localhost:3000/api/v1/user/verify/${uid}"> Click Here </a>`,
+    });
+
+    res.status(200).json({
+      message: "email sent. please verify",
+    });
+  }
+});
+
+router.put("/update", authMiddleware, async (req, res) => {
+  const user = await User.findOneAndUpdate(
+    {
+      _id: req.userId,
+    },
+    {
+      $set: {
+        password: req.body.password,
+      },
+    }
+  );
+
+  if (!user) {
+    res.status(400).json({
+      message: "incorrect headers",
     });
   } else {
     res.status(200).json({
