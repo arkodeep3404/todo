@@ -183,7 +183,7 @@ router.post("/forgot", async (req, res) => {
       to: req.body.email,
       subject: "Reset Password",
       html: `<p> Hi ${user.firstName}. Please use the link to reset password. </p> 
-      <a href = "http://localhost:5173/reset/${uid}"> Click here </a>`,
+      <a href = "${process.env.FRONTEND_URL}reset/${uid}"> Click here </a>`,
     });
 
     res.status(200).json({
