@@ -78,7 +78,7 @@ router.post("/signup", async (req, res) => {
     to: req.body.email,
     subject: "Email Verification",
     html: `<p> Hi ${req.body.firstName}. Please verify your email. </p> 
-    <a href = "http://localhost:3000/api/v1/user/verify/${uid}"> Click Here </a>`,
+    <a href = "${process.env.BACKEND_URL}api/v1/user/verify/${uid}"> Click Here </a>`,
   });
 
   res.status(200).json({
@@ -242,7 +242,7 @@ router.post("/resend", async (req, res) => {
       to: req.body.email,
       subject: "Email Verification",
       html: `<p> Hi ${user.firstName}. Please verify your email. </p> 
-    <a href = "http://localhost:3000/api/v1/user/verify/${uid}"> Click Here </a>`,
+    <a href = "${process.env.BACKEND_URL}api/v1/user/verify/${uid}"> Click Here </a>`,
     });
 
     res.status(200).json({
