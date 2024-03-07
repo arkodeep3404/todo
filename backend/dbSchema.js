@@ -1,8 +1,5 @@
 const mongoose = require("mongoose");
-
-mongoose.connect(
-  "mongodb+srv://arkodeep3404:v1iStwhqZTwhAInE@todo.bbmunuu.mongodb.net"
-);
+mongoose.connect(process.env.MONGODB);
 
 const schema = mongoose.Schema;
 const model = mongoose.model;

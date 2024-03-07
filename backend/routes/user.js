@@ -3,7 +3,6 @@ const router = express.Router();
 const zod = require("zod");
 const { User } = require("../dbSchema");
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET, email, password } = require("../config");
 const { authMiddleware } = require("../middleware/middleware");
 const nodemailer = require("nodemailer");
 
@@ -12,8 +11,8 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: email,
-    pass: password,
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
   },
 });
 
@@ -116,7 +115,7 @@ router.post("/signin", async (req, res) => {
         {
           userId,
         },
-        JWT_SECRET
+        process.env.JWT_SECRET
       );
 
       res.status(200).json({
