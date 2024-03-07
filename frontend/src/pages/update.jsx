@@ -28,7 +28,7 @@ export default function Update() {
   async function Update() {
     try {
       const response = await axios.put(
-        "http://localhost:3000/api/v1/user/update",
+        import.meta.env.VITE_BACKEND_URL + "api/v1/user/update",
         {
           password,
         },

@@ -12,7 +12,7 @@ export default function AddTodo() {
 
   async function addTodo() {
     await axios.post(
-      "http://localhost:3000/api/v1/account/todo",
+      import.meta.env.VITE_BACKEND_URL + "api/v1/account/todo",
       {
         title: Title,
         description: Description,

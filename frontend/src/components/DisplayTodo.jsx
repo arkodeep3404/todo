@@ -10,7 +10,9 @@ export default function DisplayTodo() {
   useEffect(() => {
     async function firstFetch() {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/account/todos?filter=" + Filter,
+        import.meta.env.VITE_BACKEND_URL +
+          "api/v1/account/todos?filter=" +
+          Filter,
         {
           headers: {
             authorization: "Bearer " + localStorage.getItem("todo_token"),
@@ -25,7 +27,9 @@ export default function DisplayTodo() {
   useEffect(() => {
     const timeoutValue = setTimeout(async () => {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/account/todos?filter=" + Filter,
+        import.meta.env.VITE_BACKEND_URL +
+          "api/v1/account/todos?filter=" +
+          Filter,
         {
           headers: {
             authorization: "Bearer " + localStorage.getItem("todo_token"),
@@ -41,11 +45,14 @@ export default function DisplayTodo() {
   }, [TodoList, Filter]);
 
   function deleteTodo(ID) {
-    axios.delete("http://localhost:3000/api/v1/account/todo?todoId=" + ID, {
-      headers: {
-        authorization: "Bearer " + localStorage.getItem("todo_token"),
-      },
-    });
+    axios.delete(
+      import.meta.env.VITE_BACKEND_URL + "api/v1/account/todo?todoId=" + ID,
+      {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("todo_token"),
+        },
+      }
+    );
   }
 
   return (

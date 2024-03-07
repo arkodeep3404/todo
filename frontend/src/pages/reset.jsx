@@ -30,7 +30,7 @@ export default function Reset() {
   async function Reset() {
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/v1/user/reset/${token}`,
+        import.meta.env.VITE_BACKEND_URL + `api/v1/user/reset/${token}`,
         {
           password,
         }
