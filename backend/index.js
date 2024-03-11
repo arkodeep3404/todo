@@ -10,4 +10,10 @@ app.use(express.json());
 
 app.use("/api/v1", rootRouter);
 
+app.use((err, req, res, next) => {
+  res.status(500).json({
+    message: "something went wrong",
+  });
+});
+
 app.listen(process.env.PORT || 3000);

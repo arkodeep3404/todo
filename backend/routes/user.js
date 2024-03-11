@@ -16,6 +16,12 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+router.get("/", (req, res) => {
+  res.status(200).json({
+    message: "server running",
+  });
+});
+
 router.get("/me", authMiddleware, async (req, res) => {
   const userId = req.userId;
 
