@@ -4,7 +4,7 @@ import Heading from "../components/heading";
 import InputBox from "../components/inputBox";
 import SubHeading from "../components/subHeading";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import useUser from "../hooks/useUser";
 
@@ -12,7 +12,6 @@ export default function Forgot() {
   const [email, setEmail] = useState("");
   const [Error, setError] = useState(false);
   const user = useUser();
-  const navigate = useNavigate();
 
   if (user.Loading) {
     return (

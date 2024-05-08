@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { useRecoilState } from "recoil";
-import { todoAtom } from "../store/todo";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function AddTodo() {
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
-  const [TodoList, setTodoList] = useRecoilState(todoAtom);
   const navigate = useNavigate();
 
   async function addTodo() {
