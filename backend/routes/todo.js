@@ -58,23 +58,21 @@ router.delete("/todo", authMiddleware, async (req, res) => {
   const userId = req.userId;
   const todoId = req.query.todoId;
 
-  try {
-    const todo = await Todo.findOne({
+  const todo = await Todo.findOne({
+    userId: userId,
+    _id: todoId,
+  });
+
+  if (todo) {
+    await Todo.deleteOne({
       userId: userId,
       _id: todoId,
     });
 
-    if (todo) {
-      await Todo.deleteOne({
-        userId: userId,
-        _id: todoId,
-      });
-
-      res.status(200).json({
-        message: "todo deleted",
-      });
-    }
-  } catch {
+    res.status(200).json({
+      message: "todo deleted",
+    });
+  } else {
     res.status(400).json({
       message: "incorrect id",
     });
