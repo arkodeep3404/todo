@@ -75,7 +75,7 @@ router.delete("/todo", authMiddleware, async (req, res) => {
       });
     }
   } catch {
-    res.status(200).json({
+    res.status(400).json({
       message: "incorrect id",
     });
   }
