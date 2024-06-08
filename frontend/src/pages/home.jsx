@@ -1,5 +1,5 @@
-import AddTodo from "../components/addTodo";
-import DisplayTodo from "../components/displayTodo";
+import AddTodo from "../components/AddTodo";
+import DisplayTodo from "../components/DisplayTodo";
 import useUser from "../hooks/useUser";
 import { Navigate } from "react-router-dom";
 

@@ -21,31 +21,12 @@ export default function DisplayTodo() {
       );
       setTodoList(response.data.todos);
     }
+
     firstFetch();
-  }, []);
+  }, [Filter]);
 
-  useEffect(() => {
-    const timeoutValue = setTimeout(async () => {
-      const response = await axios.get(
-        import.meta.env.VITE_BACKEND_URL +
-          "api/v1/account/todos?filter=" +
-          Filter,
-        {
-          headers: {
-            authorization: "Bearer " + localStorage.getItem("todo_token"),
-          },
-        }
-      );
-      setTodoList(response.data.todos);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timeoutValue);
-    };
-  }, [TodoList, Filter]);
-
-  function deleteTodo(ID) {
-    axios.delete(
+  async function deleteTodo(ID) {
+    await axios.delete(
       import.meta.env.VITE_BACKEND_URL + "api/v1/account/todo?todoId=" + ID,
       {
         headers: {
@@ -53,6 +34,18 @@ export default function DisplayTodo() {
         },
       }
     );
+
+    const response = await axios.get(
+      import.meta.env.VITE_BACKEND_URL +
+        "api/v1/account/todos?filter=" +
+        Filter,
+      {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("todo_token"),
+        },
+      }
+    );
+    setTodoList(response.data.todos);
   }
 
   return (
